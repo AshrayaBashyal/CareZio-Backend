@@ -1,28 +1,15 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import settings
 
+SQLALCHEMY_DATABASE_URL = settings.assembled_db_url
 
-SQLALCHEMY_DATABASE_URL = (
-f"postgresql://{settings.database_username}:"
-f"{settings.database_password}@{settings.database_hostname}:"
-f"{settings.database_port}/{settings.database_name}"
-)
-
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_pre_ping=True)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+Base = declarative_base()
 
-class Base(DeclarativeBase):
-    pass
-
-
-# Dependency for routes
-from typing import Generator
-
-
-def get_db() -> Generator:
+def get_db():
     db = SessionLocal()
     try:
         yield db
