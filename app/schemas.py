@@ -4,6 +4,7 @@ from typing import Optional
 
 # ---------- Users ----------
 class UserBase(BaseModel):
+    full_name: str
     email: EmailStr
 
 

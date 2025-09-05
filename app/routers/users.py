@@ -17,7 +17,7 @@ def create_user(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
 
     hashed = utils.hash_password(user_in.password)
-    user = models.User(email=user_in.email, password=hashed)
+    user = models.User(full_name=user_in.full_name, email=user_in.email, password=hashed)
     db.add(user)
     db.commit()
     db.refresh(user)
