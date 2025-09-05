@@ -24,10 +24,12 @@ class UserOut(UserBase):
 class Hospital(BaseModel):
     name: str
     address: str
+    phone: List[str]
     ambulances: int
     doctors: List[str]
     nurses: List[str]
     ambulance_driver_phone: List[str]
+    ambulance_driver_address: List[str]
     image_url: HttpUrl
 
 
