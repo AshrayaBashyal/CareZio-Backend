@@ -1,5 +1,5 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional
+from pydantic import BaseModel, EmailStr, HttpUrl
+from typing import Optional, List
 
 
 # ---------- Users ----------
@@ -18,6 +18,17 @@ class UserOut(UserBase):
 
     class Config:
         from_attributes = True
+
+
+#------------- Hospitals ---------------
+class Hospital(BaseModel):
+    name: str
+    address: str
+    ambulances: int
+    doctors: List[str]
+    nurses: List[str]
+    ambulance_driver_phone: List[str]
+    image_url: HttpUrl
 
 
 # ---------- Auth / Token ----------

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine
 from app.models import Base
-from app.routers import auth, users
+from app.routers import auth, users, hospitals
 
 
 app = FastAPI(title="FastAPI Auth Starter")
@@ -24,6 +24,7 @@ app.add_middleware(
 # Routers
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(hospitals.router)
 
 
 @app.get("/")
