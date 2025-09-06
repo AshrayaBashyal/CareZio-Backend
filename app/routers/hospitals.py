@@ -8,8 +8,11 @@ router = APIRouter(
 )
 
 
-@router.get("/hospitals", response_model=List[Hospital])
+@router.get("/", response_model=List[Hospital])
 def get_hospitals(query: str = Query(None, description="Search by hospital name or address")):
+    """
+    Get list of hospitals. Optionally filter by a search query (case-insensitive).
+    """
     if not query:
         return hospital_data
     query_lower = query.lower()
