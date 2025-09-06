@@ -1,29 +1,30 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy.orm import Session, selectinload
+from zoneinfo import ZoneInfo
 
 from app.database import SessionLocal
 from app import models
 from app.firebase import send_push_notification
+from app.utils_time import local_time_to_nepal_timeobj, nepal_time_to_str
 
-"""
-Background scheduler for medicine reminders and inventory alerts.
-"""
+NEPAL_TZ = ZoneInfo("Asia/Kathmandu")
 
 scheduler = BackgroundScheduler()
 
 def check_and_send_reminders():
     """
-    Periodically checks schedules and inventory to create and send notifications.
+    Periodically checks medicine schedules and inventory.
+    All times are strictly Nepal local time.
     """
     db: Session = SessionLocal()
     try:
-        now = datetime.now(timezone.utc)
+        now = datetime.now(NEPAL_TZ)
         current_time = now.time().replace(second=0, microsecond=0)
 
-        print(f"[Scheduler] Checking reminders at {now.isoformat()}")
+        print(f"[Scheduler] Checking reminders at Nepal time {now.isoformat()}")
 
-        # ---------- Part 1: schedule-based reminders ----------
+        # ---------- Schedule-based reminders ----------
         schedules = db.query(models.MedicineSchedule).options(
             selectinload(models.MedicineSchedule.times),
             selectinload(models.MedicineSchedule.medicine)
@@ -34,10 +35,23 @@ def check_and_send_reminders():
             if not medicine:
                 continue
 
-            # Check each schedule time (ScheduleTime.time_of_day)
             for st in schedule.times:
                 tod = st.time_of_day
+
                 if tod.hour == current_time.hour and tod.minute == current_time.minute:
+                    # Check for existing reminder for this medicine at this time
+                    existing_reminder = db.query(models.Notification).filter(
+                        models.Notification.related_entity_type == "medicine",
+                        models.Notification.related_entity_id == medicine.id,
+                        models.Notification.notification_type == "reminder",
+                        models.Notification.created_at >= datetime(
+                            now.year, now.month, now.day, tod.hour, tod.minute, 0, tzinfo=NEPAL_TZ
+                        )
+                    ).first()
+
+                    if existing_reminder:
+                        continue  # Skip creating duplicate
+
                     title = f"Time to take {medicine.name}"
                     message = f"Please take {medicine.name} ({medicine.dosage or 'dose'}) now."
                     notif = models.Notification(
@@ -49,15 +63,15 @@ def check_and_send_reminders():
                         related_entity_id=medicine.id
                     )
                     db.add(notif)
-                    db.commit()  # commit early to persist for reading fcm token
-                    print(f"[Scheduler] Created reminder notification for user {medicine.user_id} - medicine {medicine.name}")
+                    db.commit()
 
-                    # Try to send push notification
                     user = db.query(models.User).filter(models.User.id == medicine.user_id).first()
-                    if user and user.fcm_token:
-                        send_push_notification(user.fcm_token, title, message)
+                    if user:
+                        for token_obj in user.fcm_tokens:
+                            send_push_notification(token_obj.fcm_token, title, message)
+                    print(f"[Scheduler] Reminder created for user {medicine.user_id} - medicine {medicine.name}")
 
-        # ---------- Part 2: low-inventory check for ALL medicines ----------
+        # ---------- Low-inventory check ----------
         low_meds = db.query(models.Medicine).filter(
             models.Medicine.inventory.isnot(None),
             models.Medicine.low_threshold.isnot(None),
@@ -65,15 +79,13 @@ def check_and_send_reminders():
         ).all()
 
         for medicine in low_meds:
-            # Avoid duplicate "inventory" notifications
             existing = db.query(models.Notification).filter(
                 models.Notification.related_entity_type == "medicine",
                 models.Notification.related_entity_id == medicine.id,
                 models.Notification.notification_type == "inventory"
             ).first()
-
             if existing:
-                continue  # skip if notification already exists
+                continue
 
             title = f"Low stock: {medicine.name}"
             message = f"{medicine.name} running low — {medicine.inventory} left"
@@ -87,12 +99,12 @@ def check_and_send_reminders():
             )
             db.add(notif)
             db.commit()
-            print(f"[Scheduler] Low inventory alert created for medicine {medicine.name} (user {medicine.user_id})")
 
-            # Send push notification
             user = db.query(models.User).filter(models.User.id == medicine.user_id).first()
-            if user and user.fcm_token:
-                send_push_notification(user.fcm_token, title, message)
+            if user:
+                for token_obj in user.fcm_tokens:
+                    send_push_notification(token_obj.fcm_token, title, message)
+            print(f"[Scheduler] Low inventory alert for medicine {medicine.name} (user {medicine.user_id})")
 
     except Exception as e:
         print(f"[Scheduler ERROR] {e}")
@@ -102,9 +114,8 @@ def check_and_send_reminders():
 
 def start_scheduler():
     """
-    Start the background scheduler for reminders (runs every 60 seconds).
+    Start background scheduler (Nepal time, every 60 seconds).
     """
-    # Run scheduler every 60 seconds. For testing, change seconds=10.
     scheduler.add_job(
         check_and_send_reminders,
         "interval",
@@ -113,4 +124,4 @@ def start_scheduler():
         replace_existing=True
     )
     scheduler.start()
-    print("[Scheduler] Started")
+    print("[Scheduler] Started (Nepal time)")

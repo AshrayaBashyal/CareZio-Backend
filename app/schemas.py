@@ -19,7 +19,7 @@ class UserOut(UserBase):
     is_active: bool = Field(..., description="Is the user account active?")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------- Hospitals (static) ----------
 class Hospital(BaseModel):
@@ -55,7 +55,7 @@ class MedicineOut(MedicineBase):
     id: int = Field(..., description="Medicine ID")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------- Schedule Time ----------
 class ScheduleTimeBase(BaseModel):
@@ -65,14 +65,14 @@ class ScheduleTimeOut(ScheduleTimeBase):
     id: int = Field(..., description="ID of the schedule time entry")
 
     class Config:
-        orm_mode = True
+        form_attributes = True
 
 class ScheduleTimeWithMedicineOut(ScheduleTimeOut):
     medicine_name: str = Field(..., description="Name of the associated medicine")
     medicine_dosage: Optional[str] = Field(None, description="Dosage of the associated medicine")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------- Medicine Schedule ----------
 class MedicineScheduleBase(BaseModel):
@@ -93,13 +93,13 @@ class MedicineScheduleOut(MedicineScheduleBase):
     created_at: datetime = Field(..., description="Timestamp when schedule was created")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class MedicineScheduleWithMedicineOut(MedicineScheduleOut):
     medicine: MedicineOut
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------- Medicine Intake ----------
 class MedicineIntakeCreate(BaseModel):
@@ -111,14 +111,14 @@ class MedicineIntakeOut(BaseModel):
     taken_at: datetime = Field(..., description="Timestamp when medicine was taken (UTC)")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class MedicineIntakeWithMedicineOut(MedicineIntakeOut):
     medicine_name: str = Field(..., description="Name of the medicine")
     medicine_dosage: Optional[str] = Field(None, description="Dosage of the medicine")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # ---------- Notifications ----------
 class NotificationBase(BaseModel):
@@ -138,7 +138,7 @@ class NotificationOut(NotificationBase):
     user_id: int = Field(..., description="ID of the user this notification belongs to")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class NotificationUpdate(BaseModel):
     is_read: Optional[bool] = Field(None, description="Set to true to mark notification as read, false for unread")

@@ -2,10 +2,12 @@ from datetime import datetime, date, time as dt_time
 from zoneinfo import ZoneInfo
 from typing import Union
 
-def local_time_to_utc_timeobj(local_time: Union[str, dt_time], tz_str: str = "Asia/Kathmandu") -> dt_time:
+NEPAL_TZ = ZoneInfo("Asia/Kathmandu")
+
+def local_time_to_nepal_timeobj(local_time: Union[str, dt_time]) -> dt_time:
     """
-    Convert a local time (string "HH:MM[:SS]" or time object) in timezone tz_str
-    to a UTC time object (time in UTC, no date).
+    Convert a Nepal local time (string "HH:MM[:SS]" or time object)
+    to a Nepal time object.
     """
     if isinstance(local_time, str):
         parts = [int(p) for p in local_time.split(":")]
@@ -15,15 +17,12 @@ def local_time_to_utc_timeobj(local_time: Union[str, dt_time], tz_str: str = "As
     else:
         local_time_obj = local_time
 
-    local_dt = datetime.combine(date.today(), local_time_obj, tzinfo=ZoneInfo(tz_str))
-    utc_dt = local_dt.astimezone(ZoneInfo("UTC"))
-    # normalize seconds and microseconds to 0 for scheduler matching
-    return dt_time(utc_dt.hour, utc_dt.minute, utc_dt.second)
+    # ensure tz-aware datetime is in Nepal TZ (if needed)
+    local_dt = datetime.combine(date.today(), local_time_obj, tzinfo=NEPAL_TZ)
+    return dt_time(local_dt.hour, local_dt.minute, local_dt.second)
 
-def utc_time_to_local_str(utc_time_obj: dt_time, tz_str: str = "Asia/Kathmandu") -> str:
+def nepal_time_to_str(time_obj: dt_time) -> str:
     """
-    Convert a UTC time object to a local time string ("HH:MM:SS") in given timezone.
+    Convert a Nepal time object to string "HH:MM:SS".
     """
-    utc_dt = datetime.combine(date.today(), utc_time_obj, tzinfo=ZoneInfo("UTC"))
-    local_dt = utc_dt.astimezone(ZoneInfo(tz_str))
-    return local_dt.time().isoformat(timespec="seconds")
+    return time_obj.isoformat(timespec="seconds")
