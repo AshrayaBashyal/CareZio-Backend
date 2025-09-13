@@ -88,7 +88,7 @@ hospital_data = [
         "nurses": ["Nurse Maya", "Nurse Rekha"],
         "ambulance_driver_phone": ["+9779812340001", "+9779812340002"],
         "ambulance_driver_address": ["Dharan, Sunsari", "Dharan, Sunsari"],
-        "image_url": "https://www.bpkihs.edu/images/hospital.jpg"
+        "image_url": "https://bpkihs.edu/assets/images/BPKIHS520X320.jpg"
     },
     {
         "name": "Golden Hospital Pvt. Ltd",
@@ -99,7 +99,7 @@ hospital_data = [
         "nurses": ["Nurse Sita", "Nurse Binita"],
         "ambulance_driver_phone": ["+9779812340010"],
         "ambulance_driver_address": ["Biratnagar, Morang"],
-        "image_url": "https://www.goldenhospital.com.np/images/hospital.jpg"
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr3wEPy7pr5O6WoEV1Y8Dc8azQC_KsKArnD7gsuC8GOcz5jxuh1VJNxLOqwAIN3p-SUp71UmdQbNGUA4W67rhU5RCDSegb1ZiZjPYTD5qoN-vHXZlUlqrYztcJAfWtFo6XjtjLt=s1360-w1360-h1020-rw"
     },
     {
         "name": "Nobel Medical College Teaching Hospital",
@@ -110,7 +110,7 @@ hospital_data = [
         "nurses": ["Nurse Shristi", "Nurse Bipana"],
         "ambulance_driver_phone": ["+9779812340020", "+9779812340021"],
         "ambulance_driver_address": ["Biratnagar, Morang", "Biratnagar, Morang"],
-        "image_url": "https://www.nobelmedicalcollege.edu.np/images/hospital.jpg"
+        "image_url": "https://www.nobelmedicalcollege.com.np/uploads/slider/Z8csoGqZHYyTOGxoV3ZOSUBTp2cWK2gYnX3VV8Eo.webp"
     },
     {
         "name": "United Mission Hospital Tansen",
@@ -121,7 +121,7 @@ hospital_data = [
         "nurses": ["Nurse Tara", "Nurse Laxmi"],
         "ambulance_driver_phone": ["+9779812340030"],
         "ambulance_driver_address": ["Tansen, Palpa"],
-        "image_url": "https://www.umn.org.np/umht/images/hospital.jpg"
+        "image_url": "https://i0.wp.com/www.umn.org.np/wp-content/uploads/2023/03/tansenhosp-500x320.jpg"
     },
     {
         "name": "B & C Medical College Teaching Hospital",
@@ -132,7 +132,7 @@ hospital_data = [
         "nurses": ["Nurse Anita", "Nurse Sushma"],
         "ambulance_driver_phone": ["+9779812340040"],
         "ambulance_driver_address": ["Birtamode, Jhapa"],
-        "image_url": "https://www.bcmc.edu.np/images/hospital.jpg"
+        "image_url": "https://bnchospital.edu.np/images/bnc_about.jpg"
     },
     {
         "name": "Janakpur Provincial Hospital",
@@ -143,7 +143,7 @@ hospital_data = [
         "nurses": ["Nurse Maya", "Nurse Rekha"],
         "ambulance_driver_phone": ["+9779812340001", "+9779812340002"],
         "ambulance_driver_address": ["Janakpur, Dhanusha", "Janakpur, Dhanusha"],
-        "image_url": "https://www.janakpurdhamhospital.gov.np/images/hospital.jpg"
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Provincial_Hospital%2C_Janakpur.jpg/500px-Provincial_Hospital%2C_Janakpur.jpg"
     },
     {
         "name": "Narayani Hospital",
@@ -154,7 +154,7 @@ hospital_data = [
         "nurses": ["Nurse Sita", "Nurse Binita"],
         "ambulance_driver_phone": ["+9779812340010"],
         "ambulance_driver_address": ["Birgunj, Parsa"],
-        "image_url": "https://www.narayanihospital.gov.np/images/hospital.jpg"
+        "image_url": "https://giwmscdntwo.gov.np/media/carousels/Hospital%20Image%203_htkf32a.jpeg"
     },
     {
         "name": "Gajendra Narayan Singh Hospital",
@@ -165,7 +165,7 @@ hospital_data = [
         "nurses": ["Nurse Shristi", "Nurse Bipana"],
         "ambulance_driver_phone": ["+9779812340020", "+9779812340021"],
         "ambulance_driver_address": ["Rajbiraj, Saptari", "Rajbiraj, Saptari"],
-        "image_url": "https://www.gnsghospital.gov.np/images/hospital.jpg"
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr-JRqaI7ylAoKeg2Z4zHfXBohMGv9RqWcKw&s"
     },
     {
         "name": "Bhardaha Hospital",
@@ -176,7 +176,7 @@ hospital_data = [
         "nurses": ["Nurse Tara", "Nurse Laxmi"],
         "ambulance_driver_phone": ["+9779812340030"],
         "ambulance_driver_address": ["Bhardaha, Saptari"],
-        "image_url": "https://www.bhardahahospital.gov.np/images/hospital.jpg"
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUQLiXD68Kk-A2gs_a5enRaS6kU-_7_MFSmg&s"
     },
     {
         "name": "Pokhariya Hospital",
@@ -187,6 +187,6 @@ hospital_data = [
         "nurses": ["Nurse Anita", "Nurse Sushma"],
         "ambulance_driver_phone": ["+9779812340040"],
         "ambulance_driver_address": ["Pokhariya, Parsa"],
-        "image_url": "https://www.pokhariyahospital.gov.np/images/hospital.jpg"
+        "image_url": "https://thehimalayantimes.com/thehimalayantimes/uploads/images/2024/11/22/36077.jpg"
     }
 ]
