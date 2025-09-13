@@ -44,7 +44,7 @@ hospital_data = [
         "nurses": ["Nurse Sita", "Nurse Binita"],
         "ambulance_driver_phone": ["+9779812340010"],
         "ambulance_driver_address": ["Tansen, Palpa"],
-        "image_url": "https://palpahospital.gov.np/images/hospital.jpg"
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npho-zKE8MZUI-uBbXN2-x5VFl8m6wGsVW3EwDiViGm0eASOL7TkmT4W6xdOx31Nq_Ex_fJJqymkAmID46NGlgfW62UeRQjqDhP21XK_9bsf0e-7mq7oPdN9fR1_9C20US3-5A=s1360-w1360-h1020-rw"
     },
     {
         "name": "Rapti Provincial Hospital",
@@ -55,7 +55,7 @@ hospital_data = [
         "nurses": ["Nurse Shristi", "Nurse Bipana"],
         "ambulance_driver_phone": ["+9779812340020", "+9779812340021"],
         "ambulance_driver_address": ["Dang, Tulsipur", "Dang, Tulsipur"],
-        "image_url": "https://rph.lumbini.gov.np/images/hospital.jpg"
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqzXSm8TTH3pnYFOmJ_8fbeF9f9mI5_1Y7tO57m249ywzqZL3vRoIWktfdvxGl_ClCdKbP48nQ2CKuciDBr7x398Is-vE4eCx9T7dfojjU-ZlkDHs6QAr5CMO1sdCePL9LidR4=s1360-w1360-h1020-rw"
     },
     {
         "name": "Siddharthanagar City Hospital",
@@ -66,7 +66,7 @@ hospital_data = [
         "nurses": ["Nurse Tara", "Nurse Laxmi"],
         "ambulance_driver_phone": ["+9779812340030"],
         "ambulance_driver_address": ["Siddharthanagar, Rupandehi"],
-        "image_url": "https://cityhospital.com.np/images/hospital.jpg"
+        "image_url": "https://cityhospital.com.np/public/storage/settings/January2022/D0BsQs7szdXRtmdTLr0p.jpg"
     },
     {
         "name": "Lumbini Medical College & Teaching Hospital",
@@ -77,7 +77,7 @@ hospital_data = [
         "nurses": ["Nurse Anita", "Nurse Sushma"],
         "ambulance_driver_phone": ["+9779812340040"],
         "ambulance_driver_address": ["Palpa, Tansen"],
-        "image_url": "https://www.lmc.edu.np/images/hospital.jpg"
+        "image_url": "https://prolineconsultancy.com/wp-content/uploads/2019/05/IMG_20170606_224657-696x414.jpg"
     },
     {
         "name": "B.P. Koirala Institute of Health Sciences",
