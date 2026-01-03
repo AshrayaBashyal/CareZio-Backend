@@ -5,7 +5,7 @@ from typing import List
 from app.database import get_db
 from app import models, schemas
 from app.oauth2 import get_current_user
-from app.cloudinary import upload_medical_file
+from app.cloudinary import upload_medical_file, delete_medical_file
 
 router = APIRouter(
     prefix="/medical-records",
@@ -87,3 +87,30 @@ def get_medical_records(
         .order_by(models.MedicalRecord.uploaded_at.desc())
         .all()
     )
+
+
+@router.delete(
+    "/{record_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete a medical record",
+    description="Delete a medical record by its ID. Also removes the file from Cloudinary."
+)
+def delete_medical_record(
+    record_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    record = db.query(models.MedicalRecord).filter(
+        models.MedicalRecord.id == record_id,
+        models.MedicalRecord.user_id == current_user.id
+    ).first()
+    if not record:
+        raise HTTPException(status_code=404, detail="Record not found")
+
+    # delete from Cloudinary
+    delete_medical_file(record.file_url)
+
+    # delete from DB
+    db.delete(record)
+    db.commit()
+    return {"detail": "Record deleted successfully"}

@@ -8,7 +8,8 @@ class Settings(BaseSettings):
     """
     Application configuration settings loaded from environment variables.
     """
-    # Database (can provide assembled DB url or parts)
+
+    # Database
     database_url: Optional[str] = None
     database_hostname: Optional[str] = None
     database_port: Optional[int] = None
@@ -21,7 +22,12 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24 * 7  # 7 days
 
-    # Firebase (optional): either full JSON string or local path
+    # Cloudinary
+    cloudinary_cloud_name: Optional[str] = None
+    cloudinary_api_key: Optional[str] = None
+    cloudinary_api_secret: Optional[str] = None
+
+    # Firebase (optional)
     firebase_credentials: Optional[str] = None
 
     model_config = SettingsConfigDict(env_file=ENV_PATH, extra="ignore")

@@ -5,9 +5,8 @@ from contextlib import asynccontextmanager
 
 from app.database import engine
 from app.models import Base
-from app.routers import auth, users, hospitals, medicines, intakes, schedules, notifications
+from app.routers import auth, users, hospitals, medicines, intakes, schedules, notifications, pharmacies, medical_records
 from app.scheduler import start_scheduler
-from app.routers import pharmacies
 
 
 # create tables (dev only). In production use alembic
@@ -47,6 +46,7 @@ app.include_router(intakes.router)
 app.include_router(schedules.router)
 app.include_router(notifications.router)
 app.include_router(pharmacies.router)
+app.include_router(medical_records.router)
 
 
 @app.get("/")
